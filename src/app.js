@@ -16,16 +16,17 @@ const limiter = rateLimit({
 
 const app = express();
 const allowedOrigins = [
-    'https://healthcare-front-drab.vercel.app'
+    'https://healthcare-front-drab.vercel.app',
+    'https://healthcare-front-drab.vercel.app/'
   ];
 const corsOptions = {
     origin: allowedOrigins,
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 };
-app.use(cookieParser());
-app.use(express.json());
 app.use(cors(corsOptions));
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(limiter);
 
