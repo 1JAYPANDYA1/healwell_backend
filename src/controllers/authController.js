@@ -4,11 +4,12 @@ import { generateAccessToken } from '../utils/tokenUtils.js';
 export const logOut = async (req, res) => {
     try {
         res.clearCookie('token', {
-            httpOnly: true, 
-            secure: false,  // Change to `true` in production (if using HTTPS)
-            sameSite: 'Lax'
+            httpOnly: true,
+            secure: true,     // ✅ Must match your res.cookie secure flag (true for HTTPS)
+            sameSite: 'None', // ✅ Must match sameSite value used when setting the cookie
         });
-        
+
+
         res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
         res.status(500).json({ error: "Logout failed" });
@@ -175,13 +176,12 @@ export const login = async (req, res) => {
         else {
             token = generateAccessToken(response.user.user_id, "PATIENT");
         }
-        res.cookie('token', token, {
-            httpOnly:false,
-            secure: false,
-            sameSite: 'Lax',
-            expires: new Date(Date.now() + 60 * 50000)
+        res.cookie("token", token, {
+            httpOnly: true,             // should be true in production
+            secure: true,               // true for HTTPS
+            sameSite: "None",           // must be None for cross-site
+            expires: new Date(Date.now() + 60 * 50000), // 1 hour
         });
-
         res.status(200).json(response);
     } catch (error) {
         res.status(500).json({ message: "Something went wrong" });
