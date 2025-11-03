@@ -13,11 +13,13 @@ export const generateRefreshToken = (userId) => {
 export const verifyAccessToken = (req, res, next) => {
   try {
     const token = req.cookies.token;
+    console.log("Incoming cookies:", req.cookies);
     if (!token) {
       return res.status(401).json({ success: false, message: 'Unauthorized: No token provided' });
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+     console.log("Decoded:", decoded);
     req.userId = decoded.id;
     req.usertype = decoded.usertype
     next();
