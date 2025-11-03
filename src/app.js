@@ -23,10 +23,10 @@ const corsOptions = {
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 };
+app.use(cookieParser());
+app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(cookieParser());
 app.use(limiter);
 
 const transporter = nodemailer.createTransport({
