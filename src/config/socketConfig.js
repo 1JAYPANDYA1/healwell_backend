@@ -29,13 +29,14 @@ const verifySocketToken = (socket, next) => {
 export const initializeMeetSocket = (server) => {
     const io = new SocketIOServer(server, {
         cors: {
-            origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+            origin: ["https://healthcare-front-drab.vercel.app"],
             methods: ["GET", "POST"],
             credentials: true,
             allowedHeaders: ["Authorization"]
         },
         path: "/meet-socket/",
-        transports: ["websocket", "polling"]
+        transports: ["websocket", "polling"],
+        allowEIO3: true
     });
 
     const activeUsers = new Map();
@@ -74,13 +75,14 @@ export const initializeMeetSocket = (server) => {
 export const initializeChatSocket = (server) => {
     const io = new SocketIOServer(server, {
         cors: {
-            origin: ["http://localhost:5173", "http://127.0.0.1:5173"],
+            origin: ["https://healthcare-front-drab.vercel.app"],
             methods: ["GET", "POST"],
             credentials: true,
             allowedHeaders: ["Authorization"]
         },
         path: "/chat-socket/",
-        transports: ["websocket", "polling"]
+        transports: ["websocket", "polling"],
+        allowEIO3: true
     });
 
     const activeUsers = new Map();
