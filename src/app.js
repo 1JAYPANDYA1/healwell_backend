@@ -28,7 +28,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
-app.use(limiter);
+// app.use(limiter);
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
